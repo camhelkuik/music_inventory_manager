@@ -100,4 +100,63 @@ get "/update_a_name/:x" do
   erb :"update_success"
 end
 
+get "/change_list_m_type" do
+  erb :"change_list_m_type"
+end
 
+get "/change_m_type_form/:x" do
+  erb :"change_m_type_form"
+end
+
+get "/update_m_type/:x" do
+  entry_m = MusicCollection.find_as_objects(params["x"].to_i)
+  entry_m.media_type_id = params["media_type_id"]
+  entry_m.save
+  
+  erb :"update_success"
+end
+
+get "/change_list_location" do
+  erb :"change_list_location"
+end
+
+get "/change_location_form/:x" do
+  erb :"change_location_form"
+end
+
+get "/update_location/:x" do
+  entry_l = MusicCollection.find_as_objects(params["x"].to_i)
+  entry_l.location_id = params["location_id"]
+  entry_l.save
+  
+  erb :"update_success"
+end
+#_________________________________________________________________
+
+#Read entry methods
+
+get "/read" do
+  erb :"read_menu"
+end
+
+get "/read_all" do
+  erb :"read_all"
+end
+
+get "/read_m_type_list/:x" do
+  erb :"read_m_type_list"
+end
+
+get "/read_m_entries/:x" do
+  @read_m = MusicCollection.where_find_rows("media_type_id", params["x"].to_i)
+  erb :"read_m_entries"
+end
+
+get "/read_l_list/:x" do
+  erb :"read_l_list"
+end
+
+get "/read_l_entries/:x" do
+  @read_l = MusicCollection.where_find_rows("location_id", params["x"].to_i)
+  erb :"read_l_entries"
+end
