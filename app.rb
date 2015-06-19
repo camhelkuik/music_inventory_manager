@@ -84,5 +84,20 @@ get "/update_b_name/:x" do
   erb :"update_success"
 end
 
+get "/change_list_a_name" do
+  erb :"change_list_a_name"
+end
+
+get "/change_a_name_form/:x" do
+  erb :"change_a_name_form"
+end
+
+get "/update_a_name/:x" do
+  entry_a = MusicCollection.find_as_objects(params["x"].to_i)
+  entry_a.album_name = params["album_name"]
+  entry_a.save
+  
+  erb :"update_success"
+end
 
 
