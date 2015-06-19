@@ -63,3 +63,26 @@ get "/save_location" do
 end
 #____________________________________________________________________
 # Change information methods
+
+get "/change" do
+  erb :"change_menu"
+end
+
+get "/change_list_b_name" do
+  erb :"change_list_b_name"
+end
+
+get "/change_b_name_form/:x" do
+  erb :"change_b_name_form"
+end
+
+get "/update_b_name/:x" do
+  entry_b = MusicCollection.find_as_objects(params["x"].to_i)
+  entry_b.band_name = params["band_name"]
+  entry_b.save
+  
+  erb :"update_success"
+end
+
+
+
