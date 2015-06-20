@@ -1,14 +1,9 @@
  <h2>Enter the type of media you would like to view</h2> 
   <ul>  
     <% MediaType.all.each do |media|%>
-    <li><%= media.id %>. <%= media.type %></li>
+    <li><a href="/read_m_entries/<%= media.id %>"><%= media.type %></a></li>
     <% end %>
   </ul>
   
-  <form action="/read_m_entries/<%=params["x"]%>">
-    <input type="number" placeholder="Enter the number of the media type" name="media_type_id">
-    
-    <input type="submit">
-  </form>
   
   

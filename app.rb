@@ -160,3 +160,9 @@ get "/read_l_entries/:x" do
   @read_l = MusicCollection.where_find_rows("location_id", params["x"].to_i)
   erb :"read_l_entries"
 end
+#-------------------------------------------------------------
+#Delete methods
+
+get "/delete" do
+  erb :"delete_menu"
+end

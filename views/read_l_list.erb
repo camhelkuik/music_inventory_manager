@@ -1,12 +1,7 @@
  <h2>Enter the locattion you would like to view</h2> 
   <ul>  
     <% Location.all.each do |location|%>
-    <li><%= location.id %>. <%= location.name %></li>
+    <li><a href="/read_l_entries/<%= location.id %>"><%= location.name %></a></li>
     <% end %>
   </ul>
   
-  <form action="/read_l_entries/<%=params["x"]%>">
-    <input type="number" placeholder="Enter the number of the location" name="location_id">
-    
-    <input type="submit">
-  </form>
