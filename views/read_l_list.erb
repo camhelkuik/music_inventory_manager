@@ -1,4 +1,4 @@
- <h2>Enter the locattion you would like to view</h2> 
+ <h2>Click the location you would like to view</h2> 
   <ul>  
     <% Location.all.each do |location|%>
     <li><a href="/read_l_entries/<%= location.id %>"><%= location.name %></a></li>

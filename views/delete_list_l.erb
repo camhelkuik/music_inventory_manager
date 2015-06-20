@@ -1,4 +1,4 @@
- <h2>Click the locattion you would like to delete</h2> 
+ <h2>Click the location you would like to delete</h2> 
   <ul>  
     <% Location.all.each do |location|%>
     <li><a href="/delete_l/<%= location.id %>"><%= location.name %></a></li>

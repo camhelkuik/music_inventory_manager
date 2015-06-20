@@ -20,7 +20,8 @@ get "/home" do
   erb :"homepage"
 end
 
-#______________________________________________________________________________________
+#-----------------------------------------------------------------------
+
 # Add information methods
 get "/add" do
   erb :"add_menu"
@@ -61,7 +62,8 @@ get "/save_location" do
     "Failure. Try again."
   end
 end
-#____________________________________________________________________
+#-----------------------------------------------------------------------
+
 # Change information methods
 
 get "/change" do
@@ -131,9 +133,9 @@ get "/update_location/:x" do
   
   erb :"update_success"
 end
-#_________________________________________________________________
+#--------------------------------------------------------------
 
-#Read entry methods
+# Read entry methods
 
 get "/read" do
   erb :"read_menu"
@@ -161,7 +163,24 @@ get "/read_l_entries/:x" do
   erb :"read_l_entries"
 end
 #-------------------------------------------------------------
-#Delete methods
+# Search methods
+
+get "/search/:x" do
+  erb :"search_menu"
+end
+
+get "/search_band/:x" do
+  @search_b = MusicCollection.where_search_rows("band_name", params["x"])
+  erb :"search_band"
+end
+
+get "/search_album/:x" do
+  @search_a = MusicCollection.where_search_rows("album_name", params["x"])
+  erb :"search_album"  
+end
+
+#-------------------------------------------------------------
+# Delete methods
 
 get "/delete" do
   erb :"delete_menu"

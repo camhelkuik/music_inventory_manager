@@ -1,0 +1,12 @@
+<h2>Please enter either the band name or album name to search for:</h2>
+<form action="/search_band/<%= params["x"] %>">
+  <input type="text" placeholder="Enter band name" name="band_name">
+  
+  <input type="submit">  
+</form>
+
+<form action="/search_album/<%= params["x"] %>">
+  <input type="text" placeholder="Enter album name" name="album_name">
+  
+  <input type="submit">  
+</form>
