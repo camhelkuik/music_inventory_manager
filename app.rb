@@ -166,3 +166,42 @@ end
 get "/delete" do
   erb :"delete_menu"
 end
+
+get "/delete_list_entry/:x" do
+  erb :"delete_list_entry"
+end
+
+get "/delete_entry/:x" do
+  @d = MusicCollection.new("id" => params["x"].to_i)
+
+  @d.delete
+  erb :"delete_success"
+end
+
+get "/delete_list_m/:x" do
+  erb :"delete_list_m"
+end
+
+get "/delete_m/:x" do
+  @d = MediaType.new("id" => params["x"].to_i)
+    
+  if @d.delete_media
+    erb :"delete_success"
+  else
+    erb :"delete_failure"
+  end
+end
+
+get "/delete_list_l/:x" do
+  erb :"delete_list_l"
+end
+
+get "/delete_l/:x" do
+  @d = Location.new("id" => params["x"].to_i)
+    
+  if @d.delete_location
+    erb :"delete_success"
+  else
+    erb :"delete_failure"
+  end
+end

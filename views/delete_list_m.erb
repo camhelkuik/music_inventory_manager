@@ -1,0 +1,6 @@
+ <h2>Click the type of media you would like to delete</h2> 
+  <ul>  
+    <% MediaType.all.each do |media|%>
+    <li><a href="/delete_m//<%= media.id %>"><%= media.type %></a></li>
+    <% end %>
+  </ul>
