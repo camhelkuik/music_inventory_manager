@@ -1,5 +1,11 @@
 <form action="/update_m_type/<%= params["x"] %>">
-  <input type="number" placeholder="Enter the new media type id" name="media_type_id">
+  <input type="number" placeholder="Enter the new media type number" name="media_type_id">
   
   <input type="submit">  
 </form>
+
+  <ul>  
+    <% MediaType.all.each do |media|%>
+    <li><%= media.id %>. <%= media.type %></li>
+    <% end %>
+  </ul>

@@ -1,5 +1,11 @@
 <form action="/save_location">
-  <input type="text" placeholder="Enter location name" name="name">
+  <input type="text" placeholder="Enter location number" name="name">
   
   <input type="submit">  
 </form>
+
+<ul>
+ <% Location.all.each do |location|%>
+ <li><%= location.id %>. <%= location.name %></li>
+ <%end%>
+</ul>

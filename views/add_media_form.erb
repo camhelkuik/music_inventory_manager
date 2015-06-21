@@ -1,5 +1,11 @@
 <form action="/save_media">
-  <input type="text" placeholder="Enter media type name" name="type">
+  <input type="text" placeholder="Enter media type number" name="type">
   
   <input type="submit">  
 </form>
+
+  <ul>  
+    <% MediaType.all.each do |media|%>
+    <li><%= media.id %>. <%= media.type %></li>
+    <% end %>
+  </ul>

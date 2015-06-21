@@ -1,8 +1,25 @@
 <h2>Here are your search results:</h2>
+
+  <p>Band name - Album name - Media type id - Location id<p>
+
  <ul>
   <% @search_a.each do |music| %>
     <li><%=music.id%>. <%=music.band_name%> - <%=music.album_name%> - <%=music.media_type_id%> - <%=music.location_id%></li>
   <%end%>
 </ul>
 
-<a href="/home">Return to main menu?</a>
+  <p>Media Type Information</p>
+  <ul>  
+    <% MediaType.all.each do |media|%>
+    <li><%= media.id %>. <%= media.type %></li>
+    <% end %>
+  </ul>
+
+<p>Location Information</p>
+  <ul>  
+    <% Location.all.each do |location|%>
+    <li><%= location.id %>. <%= location.name %></li>
+    <% end %>
+  </ul>
+  
+  <a href="/home">Return to main menu?</a>

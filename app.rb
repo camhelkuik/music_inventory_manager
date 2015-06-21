@@ -32,11 +32,9 @@ get "/add_entry" do
 end
 
 get "/save_entry" do  
-    if  @new_entry = MusicCollection.add({"band_name" => params["band_name"], "album_name" => params["album_name"], "media_type_id" => params["media_type_id"].to_i, "location_id" => params["location_id"].to_i})
-      erb :"save_entry"
-    else
-      "Failure. Try again."
-    end
+  @new_entry = MusicCollection.add({"band_name" => params["band_name"], "album_name" => params["album_name"], "media_type_id" => params["media_type_id"].to_i, "location_id" => params["location_id"].to_i})
+  erb :"save_entry"
+   
 end
 
 get "/add_media" do
@@ -44,11 +42,8 @@ get "/add_media" do
 end
 
 get "/save_media" do
-  if  @new_entry = MediaType.add({"type" => params["type"]})
-    erb :"save_media"
-  else
-    "Failure. Try again."
-  end
+  @new_entry = MediaType.add({"type" => params["type"]})
+  erb :"save_entry"
 end
 
 get "/add_location" do
@@ -56,11 +51,8 @@ get "/add_location" do
 end
 
 get "/save_location" do
-  if  @new_entry = Location.add({"name" => params["name"]})
-    erb :"save_location"
-  else
-    "Failure. Try again."
-  end
+   @new_entry = Location.add({"name" => params["name"]})
+   erb :"save_entry"
 end
 #-----------------------------------------------------------------------
 
@@ -170,12 +162,12 @@ get "/search/:x" do
 end
 
 get "/search_band/:x" do
-  @search_b = MusicCollection.where_search_rows("band_name", params["x"])
+  @search_b = MusicCollection.where_search_rows("band_name", params["band_name"])
   erb :"search_band"
 end
 
 get "/search_album/:x" do
-  @search_a = MusicCollection.where_search_rows("album_name", params["x"])
+  @search_a = MusicCollection.where_search_rows("album_name", params["album_name"])
   erb :"search_album"  
 end
 
