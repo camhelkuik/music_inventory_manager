@@ -1,6 +1,0 @@
-<h2> Click the entry you would like to change:</h2>
-  <ul>  
-    <% MusicCollection.all.each do |music| %>
-    <li><a href="/change_location_form/<%= music.id %>"><%= music.band_name %> - <%= music.album_name%> - <%= music.media_type_id%> - <%=music.location_id%></a></li>
-    <% end %>
-  </ul>

@@ -1,0 +1,37 @@
+<form action="/update_b_name/<%= params["x"] %>">
+  <input type="text" placeholder="Enter the new band name" name="band_name">
+  
+  <input type="submit">  
+</form>
+
+<form action="/update_a_name/<%= params["x"] %>">
+  <input type="text" placeholder="Enter the new album name" name="album_name">
+  
+  <input type="submit">  
+</form>
+
+<form action="/update_m_type/<%= params["x"] %>">
+  <input type="number" placeholder="Enter the new media type number" name="media_type_id">
+  
+  <input type="submit">  
+</form>
+
+<form action="/update_location/<%= params["x"] %>">
+  <input type="number" placeholder="Enter the new location number" name="location_id">
+  
+  <input type="submit">  
+</form>
+
+<p>Media Type Information</p>
+  <ul>  
+    <% MediaType.all.each do |media|%>
+    <li><%= media.id %>. <%= media.type %></li>
+    <% end %>
+  </ul>
+ 
+ <p>Location Information</p> 
+  <ul>  
+    <% Location.all.each do |location|%>
+    <li><%= location.id %>. <%= location.name %></li>
+    <% end %>
+  </ul>

@@ -59,16 +59,20 @@ end
 # Change information methods
 
 get "/change" do
-  erb :"change_menu"
+  erb :"change_list"
 end
 
-get "/change_list_b_name" do
-  erb :"change_list_b_name"
+get "/change_form/:x" do
+  erb :"change_form"
 end
 
-get "/change_b_name_form/:x" do
-  erb :"change_b_name_form"
-end
+# get "/change_list_b_name" do
+#   erb :"change_list_b_name"
+# end
+#
+# get "/change_b_name_form/:x" do
+#   erb :"change_b_name_form"
+# end
 
 get "/update_b_name/:x" do
   entry_b = MusicCollection.find_as_objects(params["x"].to_i)
@@ -78,13 +82,13 @@ get "/update_b_name/:x" do
   erb :"update_success"
 end
 
-get "/change_list_a_name" do
-  erb :"change_list_a_name"
-end
-
-get "/change_a_name_form/:x" do
-  erb :"change_a_name_form"
-end
+# get "/change_list_a_name" do
+#   erb :"change_list_a_name"
+# end
+#
+# get "/change_a_name_form/:x" do
+#   erb :"change_a_name_form"
+# end
 
 get "/update_a_name/:x" do
   entry_a = MusicCollection.find_as_objects(params["x"].to_i)
@@ -93,14 +97,14 @@ get "/update_a_name/:x" do
   
   erb :"update_success"
 end
-
-get "/change_list_m_type" do
-  erb :"change_list_m_type"
-end
-
-get "/change_m_type_form/:x" do
-  erb :"change_m_type_form"
-end
+#
+# get "/change_list_m_type" do
+#   erb :"change_list_m_type"
+# end
+#
+# get "/change_m_type_form/:x" do
+#   erb :"change_m_type_form"
+# end
 
 get "/update_m_type/:x" do
   entry_m = MusicCollection.find_as_objects(params["x"].to_i)
@@ -110,13 +114,13 @@ get "/update_m_type/:x" do
   erb :"update_success"
 end
 
-get "/change_list_location" do
-  erb :"change_list_location"
-end
-
-get "/change_location_form/:x" do
-  erb :"change_location_form"
-end
+# get "/change_list_location" do
+#   erb :"change_list_location"
+# end
+#
+# get "/change_location_form/:x" do
+#   erb :"change_location_form"
+# end
 
 get "/update_location/:x" do
   entry_l = MusicCollection.find_as_objects(params["x"].to_i)
