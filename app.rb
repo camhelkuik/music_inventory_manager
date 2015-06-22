@@ -82,20 +82,17 @@ get "/update_entry/:x" do
   entry = MusicCollection.find_as_objects(params["x"].to_i)
   unless params["band_name"].blank?
     entry.band_name = params["band_name"]
-    entry.save
   end
   unless params["album_name"].blank?
     entry.album_name = params["album_name"]
-    entry.save
   end
   unless params["media_type_id"].blank?
     entry.media_type_id = params["media_type_id"]
-    entry.save
   end
   unless params["location_id"].blank?
     entry.location_id = params["location_id"]
-    entry.save
   end
+  entry.save
   erb :"update_success"
 end
 
