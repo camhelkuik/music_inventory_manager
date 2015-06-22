@@ -1,6 +1,7 @@
 require"pry"
 require "sinatra"
 require "sinatra/reloader"
+require 'active_support/core_ext/object/blank'
 
 require "sqlite3"
 
@@ -77,40 +78,27 @@ get "/change_form/:x" do
 end
 
 # Method updates the information from the change_form in the database and takes the user to a confirmation page.
-get "/update_b_name/:x" do
-  entry_b = MusicCollection.find_as_objects(params["x"].to_i)
-  entry_b.band_name = params["band_name"]
-  entry_b.save
-  
+get "/update_entry/:x" do
+  entry = MusicCollection.find_as_objects(params["x"].to_i)
+  unless params["band_name"].blank?
+    entry.band_name = params["band_name"]
+    entry.save
+  end
+  unless params["album_name"].blank?
+    entry.album_name = params["album_name"]
+    entry.save
+  end
+  unless params["media_type_id"].blank?
+    entry.media_type_id = params["media_type_id"]
+    entry.save
+  end
+  unless params["location_id"].blank?
+    entry.location_id = params["location_id"]
+    entry.save
+  end
   erb :"update_success"
 end
 
-# Method updates the information from the change_form in the database and takes the user to a confirmation page.
-get "/update_a_name/:x" do
-  entry_a = MusicCollection.find_as_objects(params["x"].to_i)
-  entry_a.album_name = params["album_name"]
-  entry_a.save
-  
-  erb :"update_success"
-end
-
-# Method updates the information from the change_form in the database and takes the user to a confirmation page.
-get "/update_m_type/:x" do
-  entry_m = MusicCollection.find_as_objects(params["x"].to_i)
-  entry_m.media_type_id = params["media_type_id"]
-  entry_m.save
-  
-  erb :"update_success"
-end
-
-# Method updates the information from the change_form in the database and takes the user to a confirmation page.
-get "/update_location/:x" do
-  entry_l = MusicCollection.find_as_objects(params["x"].to_i)
-  entry_l.location_id = params["location_id"]
-  entry_l.save
-  
-  erb :"update_success"
-end
 #--------------------------------------------------------------
 
 # Read entry methods

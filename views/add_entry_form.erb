@@ -6,3 +6,17 @@
   
   <input type="submit">  
 </form>
+
+<p>Media Type Information</p>
+  <ul>  
+    <% MediaType.all.each do |media|%>
+    <li><%= media.id %>. <%= media.type %></li>
+    <% end %>
+  </ul>
+ 
+ <p>Location Information</p> 
+  <ul>  
+    <% Location.all.each do |location|%>
+    <li><%= location.id %>. <%= location.name %></li>
+    <% end %>
+  </ul>
