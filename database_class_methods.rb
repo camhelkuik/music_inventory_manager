@@ -58,7 +58,9 @@ module DatabaseClassMethods
    def find(record_id)
      table_name = self.to_s.pluralize.underscore
     
-     CONNECTION.execute("SELECT * FROM #{table_name} WHERE id = #{record_id}")
+     result = CONNECTION.execute("SELECT * FROM #{table_name} WHERE id = #{record_id}").first
+     
+     self.new(result)
   end
   
   # Get multiple rows based on Integer ID.
@@ -70,7 +72,14 @@ module DatabaseClassMethods
   def find_rows(field_name, record_id)
     table_name = self.to_s.pluralize.underscore
     
-    CONNECTION.execute("SELECT * FROM #{table_name} WHERE #{field_name} = #{record_id}")
+    results = CONNECTION.execute("SELECT * FROM #{table_name} WHERE #{field_name} = #{record_id}")
+    results_as_objects = []
+    
+    results.each do |result_hash|
+     results_as_objects << self.new(result_hash)
+    end
+    
+    return results_as_objects 
   end
   
   # Get multiple rows based on user inputed String.
@@ -82,7 +91,14 @@ module DatabaseClassMethods
   def search_rows(field_name, input)
     table_name = self.to_s.pluralize.underscore
     
-    CONNECTION.execute("SELECT * FROM #{table_name} WHERE #{field_name} = '#{input}'")
+    results = CONNECTION.execute("SELECT * FROM #{table_name} WHERE #{field_name} = '#{input}'")
+    results_as_objects = []
+    
+    results.each do |result_hash|
+     results_as_objects << self.new(result_hash)
+    end
+    
+    return results_as_objects
   end
 
 end

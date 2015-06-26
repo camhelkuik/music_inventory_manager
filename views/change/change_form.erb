@@ -1,0 +1,22 @@
+<form action="/update_entry/<%= params["x"] %>">
+  <input type="text" placeholder="Enter the new band name" name="band_name" value="<%= @entry.band_name %>">
+  <input type="text" placeholder="Enter the new album name" name="album_name" value="<%= @entry.album_name %>">
+  <input type="number" placeholder="Enter the new media type number" name="media_type_id" value="<%= @entry.media_type_id %>">
+  <input type="number" placeholder="Enter the new location number" name="location_id" value="<%= @entry.location_id %>">
+   
+  <input type="submit">  
+</form>
+
+<p>Media Type Information</p>
+  <ul>  
+    <% MediaType.all.each do |media|%>
+    <li><%= media.id %>. <%= media.type %></li>
+    <% end %>
+  </ul>
+ 
+ <p>Location Information</p> 
+  <ul>  
+    <% Location.all.each do |location|%>
+    <li><%= location.id %>. <%= location.name %></li>
+    <% end %>
+  </ul>

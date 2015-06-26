@@ -27,11 +27,11 @@ class MusicCollection
      MusicCollection.new(result)
    end
   
-  # Allows all the rows of a certain media type to be read.
+  # Allows all the rows of a certain column to be read.
   #
-  # input - Integer, the media type id to be read.
+  # input - Integer, the id to be read.
   #
-  # Returns an Array of objects of all the entries with a specified media type 
+  # Returns an Array of objects of all the entries in a specified column.
   def self.where_find_rows(field_name, input)
     results = self.find_rows(field_name, input)
     results_as_objects = []
@@ -70,8 +70,8 @@ class MusicCollection
   #
   # Returns self, an object.
   def save
-    CONNECTION.execute("UPDATE music_collections SET band_name = '#{@band_name}', album_name = '#{@album_name}', media_type_id = #{@media_type_id}, location_id = #{@location_id} WHERE id = #{@id};")
+    CONNECTION.execute("UPDATE music_collections SET band_name = '#{self.band_name}', album_name = '#{self.album_name}',
+     media_type_id = #{self.media_type_id}, location_id = #{self.location_id} WHERE id = #{self.id};")
     return self
-  end
-  
+  end  
 end

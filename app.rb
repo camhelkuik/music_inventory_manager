@@ -28,40 +28,40 @@ end
 
 # Method allows user to choose what they would like to add.
 get "/add" do
-  erb :"add_menu"
+  erb :"main/add_menu"
 end
 
 # Method allows the user to add a music entry to the database.
 get "/add_entry" do
-  erb :"add_entry_form"
+  erb :"add/add_entry_form"
 end
 
 # Method saves the new entry to the database and takes the user to the confirmation page.
 get "/save_entry" do  
   @new_entry = MusicCollection.add({"band_name" => params["band_name"], "album_name" => params["album_name"], "media_type_id" => params["media_type_id"].to_i, "location_id" => params["location_id"].to_i})
-  erb :"save_entry"  
+  erb :"main/save_entry"  
 end
 
 # Method allows the user to add a new media type to the database.
 get "/add_media" do
-  erb :"add_media_form"
+  erb :"add/add_media_form"
 end
 
 # Method saves the new entry to the database and takes the user to the confirmation page.
 get "/save_media" do
   @new_entry = MediaType.add({"type" => params["type"]})
-  erb :"save_entry"
+  erb :"main/save_entry"
 end
 
 # Metho allows the user to add a new locatoin to the database. 
 get "/add_location" do
-  erb :"add_location_form"
+  erb :"add/add_location_form"
 end
 
 # Method saves the new entry to the database and takes the user to the confirmation page.
 get "/save_location" do
    @new_entry = Location.add({"name" => params["name"]})
-   erb :"save_entry"
+   erb :"main/save_entry"
 end
 #-----------------------------------------------------------------------
 
@@ -69,31 +69,24 @@ end
 
 # Method shows the list of music entries and allows user to click entry they wish to change.
 get "/change" do
-  erb :"change_list"
+  erb :"change/change_list"
 end
 
 # Method has four forms that allows the user to change information on the entry.
 get "/change_form/:x" do
-  erb :"change_form"
+  @entry = MusicCollection.find(params["x"].to_i)
+  erb :"change/change_form"
 end
 
 # Method updates the information from the change_form in the database and takes the user to a confirmation page.
 get "/update_entry/:x" do
-  entry = MusicCollection.find_as_objects(params["x"].to_i)
-  unless params["band_name"].blank?
-    entry.band_name = params["band_name"]
-  end
-  unless params["album_name"].blank?
-    entry.album_name = params["album_name"]
-  end
-  unless params["media_type_id"].blank?
-    entry.media_type_id = params["media_type_id"]
-  end
-  unless params["location_id"].blank?
-    entry.location_id = params["location_id"]
-  end
-  entry.save
-  erb :"update_success"
+  entry = MusicCollection.find(params["x"].to_i)
+  @entry.band_name = params["band_name"]
+  @entry.album_name = params["album_name"]
+  @entry.media_type_id = params["media_type_id"]
+  @entry.location_id = params["location_id"]
+  @entry.save
+  erb :"main/update_success"
 end
 
 #--------------------------------------------------------------
@@ -102,53 +95,53 @@ end
 
 # Method allows user to choose what they would like to view.
 get "/read" do
-  erb :"read_menu"
+  erb :"main/read_menu"
 end
 
 # Method shows a list of all the music entries.
 get "/read_all" do
-  erb :"read_all"
+  erb :"read/read_all"
 end
 
 # Method shows a list of all the media types and allows user to click on the media type they would like to view.
 get "/read_m_type_list/:x" do
-  erb :"read_m_type_list"
+  erb :"read/read_m_type_list"
 end
 
 # Method shows all the music entries for a specific media type.
 get "/read_m_entries/:x" do
   @read_m = MusicCollection.where_find_rows("media_type_id", params["x"].to_i)
-  erb :"read_m_entries"
+  erb :"read/read_m_entries"
 end
 
 # Method shows a list of all the locations and allows user to click on the location they would like to view.
 get "/read_l_list/:x" do
-  erb :"read_l_list"
+  erb :"read/read_l_list"
 end
 
 # Method shows all the music entries for a specific location. 
 get "/read_l_entries/:x" do
   @read_l = MusicCollection.where_find_rows("location_id", params["x"].to_i)
-  erb :"read_l_entries"
+  erb :"read/read_l_entries"
 end
 #-------------------------------------------------------------
 # Search methods
 
 # Method allows user to search for music entries through the band name or album name.
 get "/search/:x" do
-  erb :"search_menu"
+  erb :"main/search_menu"
 end
 
 # Method shows the music entries that correspond to the search. 
 get "/search_band/:x" do
   @search_b = MusicCollection.where_search_rows("band_name", params["band_name"])
-  erb :"search_band"
+  erb :"search/search_band"
 end
 
 # Method shows the music entries that correspond to the search. 
 get "/search_album/:x" do
   @search_a = MusicCollection.where_search_rows("album_name", params["album_name"])
-  erb :"search_album"  
+  erb :"search/search_album"  
 end
 
 #-------------------------------------------------------------
@@ -156,12 +149,12 @@ end
 
 # Method allows user to choose what they would like to delete. 
 get "/delete" do
-  erb :"delete_menu"
+  erb :"main/delete_menu"
 end
 
 # Method shows list of all the music entries. User then clicks the entry they wish to delete.
 get "/delete_list_entry/:x" do
-  erb :"delete_list_entry"
+  erb :"delete/delete_list_entry"
 end
 
 # Method deletes the choosen entry and bring the user to the confirmation page. 
@@ -169,12 +162,12 @@ get "/delete_entry/:x" do
   @d = MusicCollection.new("id" => params["x"].to_i)
 
   @d.delete
-  erb :"delete_success"
+  erb :"delete/delete_success"
 end
 
 # Method shows list of the media types. User then clicks the entry they wish to delete.
 get "/delete_list_m/:x" do
-  erb :"delete_list_m"
+  erb :"delete/delete_list_m"
 end
 
 # Method verifies that the media type entry has nothing assigned to it. If there is nothing assigned to it, the entry is then
@@ -183,15 +176,15 @@ get "/delete_m/:x" do
   @d = MediaType.new("id" => params["x"].to_i)
     
   if @d.delete_media
-    erb :"delete_success"
+    erb :"delete/delete_success"
   else
-    erb :"delete_failure"
+    erb :"delete/delete_failure"
   end
 end
 
 # Method shows list of the locations. User then clicks the entry they wish to delete. 
 get "/delete_list_l/:x" do
-  erb :"delete_list_l"
+  erb :"delete/delete_list_l"
 end
 
 # Method verifies that the location entry has nothing assigned to it. If there is nothing assigned to it, the entry is then
@@ -200,8 +193,8 @@ get "/delete_l/:x" do
   @d = Location.new("id" => params["x"].to_i)
     
   if @d.delete_location
-    erb :"delete_success"
+    erb :"delete/delete_success"
   else
-    erb :"delete_failure"
+    erb :"delete/delete_failure"
   end
 end
