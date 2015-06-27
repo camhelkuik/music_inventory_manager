@@ -13,17 +13,6 @@ class Location
     @name = options["name"]
   end
   
-  # Finds an existing entry in the table and creates an object for it.
-  #
-  # id - Integer, location id
-  #
-  # Returns a new object. 
-  def self.find_as_objects(id)
-     result = self.find(id).first
-    
-     Location.new(result)
-   end
-  
   # Changes an object to a String.
   #
   # Returns a String. 
@@ -35,7 +24,7 @@ class Location
   #
   # Returns a Boolean.
   def delete_location
-    if MusicCollection.where_find_rows("location_id", @id) == []
+    if MusicCollection.find_rows("location_id", @id) == []
       self.delete
     else
       false
