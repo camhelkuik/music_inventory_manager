@@ -1,7 +1,24 @@
 <h2>Click which entry you would like to delete:</h2>  
   
-  <ul>  
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Band Name</th>
+      <th>Album Name</th>
+      <th>Media Type ID</th>
+      <th>Location Id</th> 
+    </tr>
     <% MusicCollection.all.each do |music| %>
-    <li><a href="/delete_entry/<%= music.id %>"><%= music.band_name %> - <%= music.album_name%> - <%= music.media_type_id%> - <%= music.location_id%></a></li>
+    <tr>
+      <td>
+        <a href="/delete_entry/<%= music.id %>">
+          <%= music.id %>
+        </a>
+      </td>
+      <td><%= music.band_name %></td>
+      <td><%= music.album_name %></td>
+      <td><%= music.media_type_id %></td>
+      <td><%= music.location_id %></td>
+    </tr>
     <% end %>
-  </ul>
+  </table>

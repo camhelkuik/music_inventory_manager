@@ -1,12 +1,23 @@
 <h2>Here are your search results:</h2> 
 
-  <p>Band name - Album name - Media type id - Location id<p>
-
-    <ul>
-      <%@search_b.each do |music|%>
-      <li><%= music.id%>. <%= music.band_name%> - <%=music.album_name%> - <%=music.media_type_id%> - <%= music.location_id%></li>
-      <%end%>
-    </ul>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Band Name</th>
+      <th>Album Name</th>
+      <th>Media Type ID</th>
+      <th>Location Id</th> 
+    </tr>
+  <% @search_b.each do |music| %>
+    <tr>
+      <td><%= music.id %></td>
+      <td><%= music.band_name %></td>
+      <td><%= music.album_name %></td>
+      <td><%= music.media_type_id %></td>
+      <td><%= music.location_id %></td>
+    </tr>
+    <% end %>
+  </table>
 
   <p>Media Type Information</p>
   <ul>  

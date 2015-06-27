@@ -9,7 +9,7 @@ require_relative"database_setup.rb"
 
 #Models
 require_relative "models/music.rb"
-require_relative "modles/media-type.rb"
+require_relative "models/media-type.rb"
 require_relative "models/location.rb"
 
 #Controllers
