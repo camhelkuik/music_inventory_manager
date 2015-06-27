@@ -3,20 +3,27 @@ require "active_support/inflector"
 
 module DatabaseClassMethods
   
-  # Get all of the rows for a table.
-  #
-  # Returns an Array containing Objects for each row.
-  def all
-    table_name = self.to_s.pluralize.underscore
-     
-    results = CONNECTION.execute("SELECT * FROM #{table_name}")
+  def results_as_objects(results)
     results_as_objects = []
         
     results.each do |result_hash|
      results_as_objects << self.new(result_hash)
     end
-     
+    
     return results_as_objects
+  end
+  
+  def table_name
+    table_name = self.to_s.pluralize.underscore
+  end
+  
+  # Get all of the rows for a table.
+  #
+  # Returns an Array containing Objects for each row.
+  def all     
+    results = CONNECTION.execute("SELECT * FROM #{self.table_name}")
+     
+    return self.results_as_objects(results)
   end
   
   # Add a new record to the database.
@@ -25,24 +32,8 @@ module DatabaseClassMethods
   def add(options={})
     column_names = options.keys
     values = options.values
-      
-    column_names_for_sql = column_names.join(", ")
-
-    individual_values_for_sql = []
-
-    values.each do |value|
-      if value.is_a?(String)
-        individual_values_for_sql << "'#{value}'"
-      else  
-        individual_values_for_sql << value
-      end  
-    end
-     
-    values_for_sql = individual_values_for_sql.join(", ")
-
-    table_name = self.to_s.pluralize.underscore
- 
-    CONNECTION.execute("INSERT INTO #{table_name} (#{column_names_for_sql}) VALUES (#{values_for_sql});")
+    
+    CONNECTION.execute("INSERT INTO #{self.table_name} (#{column_names.join(", ")}) VALUES (#{values.to_s[1...-1]});")
   
     id = CONNECTION.last_insert_row_id
     options["id"] = id
@@ -55,10 +46,8 @@ module DatabaseClassMethods
    # record_id - The record's Integer ID.
    #
    # Returns an Array containing the Hash of the row.
-   def find(record_id)
-     table_name = self.to_s.pluralize.underscore
-    
-     result = CONNECTION.execute("SELECT * FROM #{table_name} WHERE id = #{record_id}").first
+   def find(record_id)    
+     result = CONNECTION.execute("SELECT * FROM #{self.table_name} WHERE id = #{record_id}").first
      
      self.new(result)
   end
@@ -69,17 +58,10 @@ module DatabaseClassMethods
   # record_id - The record's Integer ID.
   #
   # Returns an Array containing the Hash of the rows.
-  def find_rows(field_name, record_id)
-    table_name = self.to_s.pluralize.underscore
-    
-    results = CONNECTION.execute("SELECT * FROM #{table_name} WHERE #{field_name} = #{record_id}")
-    results_as_objects = []
-    
-    results.each do |result_hash|
-     results_as_objects << self.new(result_hash)
-    end
-    
-    return results_as_objects 
+  def find_rows(field_name, record_id)    
+    results = CONNECTION.execute("SELECT * FROM #{self.table_name} WHERE #{field_name} = #{record_id}")
+   
+    return self.results_as_objects(results) 
   end
   
   # Get multiple rows based on user inputed String.
@@ -88,17 +70,10 @@ module DatabaseClassMethods
   # input - The user inputed String
   #
   # Returns an Array containing the Hash of the rows.
-  def search_rows(field_name, input)
-    table_name = self.to_s.pluralize.underscore
+  def search_rows(field_name, input)    
+    results = CONNECTION.execute("SELECT * FROM #{self.table_name} WHERE #{field_name} = '#{input}'")
     
-    results = CONNECTION.execute("SELECT * FROM #{table_name} WHERE #{field_name} = '#{input}'")
-    results_as_objects = []
-    
-    results.each do |result_hash|
-     results_as_objects << self.new(result_hash)
-    end
-    
-    return results_as_objects
+    return self.results_as_objects(results)
   end
 
 end

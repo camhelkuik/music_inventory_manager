@@ -19,7 +19,7 @@ require_relative "location.rb"
 
 # Method is the homepage menu.
 get "/home" do
-  erb :"homepage"
+  erb :"main/homepage"
 end
 
 #-----------------------------------------------------------------------
