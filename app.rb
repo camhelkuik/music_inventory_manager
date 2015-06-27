@@ -38,7 +38,8 @@ end
 
 # Method saves the new entry to the database and takes the user to the confirmation page.
 get "/save_entry" do  
-  @new_entry = MusicCollection.add({"band_name" => params["band_name"], "album_name" => params["album_name"], "media_type_id" => params["media_type_id"].to_i, "location_id" => params["location_id"].to_i})
+  @new_entry = MusicCollection.add({"band_name" => params["band_name"], "album_name" => params["album_name"], 
+    "media_type_id" => params["media_type_id"].to_i, "location_id" => params["location_id"].to_i})
   erb :"main/save_entry"  
 end
 
@@ -80,7 +81,7 @@ end
 
 # Method updates the information from the change_form in the database and takes the user to a confirmation page.
 get "/update_entry/:x" do
-  entry = MusicCollection.find(params["x"].to_i)
+  @entry = MusicCollection.find(params["x"].to_i)
   @entry.band_name = params["band_name"]
   @entry.album_name = params["album_name"]
   @entry.media_type_id = params["media_type_id"]
@@ -110,7 +111,7 @@ end
 
 # Method shows all the music entries for a specific media type.
 get "/read_m_entries/:x" do
-  @read_m = MusicCollection.where_find_rows("media_type_id", params["x"].to_i)
+  @read_m = MusicCollection.find_rows("media_type_id", params["x"].to_i)
   erb :"read/read_m_entries"
 end
 
@@ -121,7 +122,7 @@ end
 
 # Method shows all the music entries for a specific location. 
 get "/read_l_entries/:x" do
-  @read_l = MusicCollection.where_find_rows("location_id", params["x"].to_i)
+  @read_l = MusicCollection.find_rows("location_id", params["x"].to_i)
   erb :"read/read_l_entries"
 end
 #-------------------------------------------------------------
@@ -134,13 +135,13 @@ end
 
 # Method shows the music entries that correspond to the search. 
 get "/search_band/:x" do
-  @search_b = MusicCollection.where_search_rows("band_name", params["band_name"])
+  @search_b = MusicCollection.search_rows("band_name", params["band_name"])
   erb :"search/search_band"
 end
 
 # Method shows the music entries that correspond to the search. 
 get "/search_album/:x" do
-  @search_a = MusicCollection.where_search_rows("album_name", params["album_name"])
+  @search_a = MusicCollection.search_rows("album_name", params["album_name"])
   erb :"search/search_album"  
 end
 
