@@ -1,4 +1,7 @@
-# Metho allows the user to add a new locatoin to the database. 
+#-----------------------------------
+# Add Locations
+#-----------------------------------
+# Method allows the user to add a new locatoin to the database. 
 get "/add_location" do
   erb :"add/add_location_form"
 end
@@ -8,6 +11,8 @@ get "/save_location" do
    @new_entry = Location.add({"name" => params["name"]})
    erb :"add/save_entry"
 end
+#------------------------------
+# View Locations
 #------------------------------
 # Method shows a list of all the locations and allows user to click on the location they would like to view.
 get "/read_l_list/:x" do
@@ -19,6 +24,8 @@ get "/read_l_entries/:x" do
   @read_l = MusicCollection.find_rows("location_id", params["x"].to_i)
   erb :"read/read_l_entries"
 end
+#----------------------------------
+# Delete Locations
 #----------------------------------
 # Method shows list of the locations. User then clicks the entry they wish to delete. 
 get "/delete_list_l/:x" do

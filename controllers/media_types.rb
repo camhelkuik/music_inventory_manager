@@ -1,3 +1,6 @@
+#------------------------------
+# Add Media Type
+#-------------------------------
 # Method allows the user to add a new media type to the database.
 get "/add_media" do
   erb :"add/add_media_form"
@@ -9,6 +12,8 @@ get "/save_media" do
   erb :"add/save_entry"
 end
 #----------------------------------
+# View Media Types
+#----------------------------------
 # Method shows a list of all the media types and allows user to click on the media type they would like to view.
 get "/read_m_type_list/:x" do
   erb :"read/read_m_type_list"
@@ -19,6 +24,8 @@ get "/read_m_entries/:x" do
   @read_m = MusicCollection.find_rows("media_type_id", params["x"].to_i)
   erb :"read/read_m_entries"
 end
+#---------------------------------
+# Delete Media Types
 #---------------------------------
 # Method shows list of the media types. User then clicks the entry they wish to delete.
 get "/delete_list_m/:x" do

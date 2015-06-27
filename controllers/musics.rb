@@ -1,3 +1,6 @@
+#----------------------------------------------
+# Add Music Entries
+#----------------------------------------------
 # Method allows the user to add a music entry to the database.
 get "/add_entry" do
   erb :"add/add_entry_form"
@@ -11,7 +14,7 @@ get "/save_entry" do
 end
 #-----------------------------------------------
 # Change information methods
-
+#-----------------------------------------------
 # Method shows the list of music entries and allows user to click entry they wish to change.
 get "/change" do
   erb :"change/change_list"
@@ -34,10 +37,14 @@ get "/update_entry/:x" do
   erb :"main/update_success"
 end
 #------------------------------------------------
+# View Music Entries
+#------------------------------------------------
 # Method shows a list of all the music entries.
 get "/read_all" do
   erb :"read/read_all"
 end
+#-----------------------------------------------
+# Search Music Entries
 #-----------------------------------------------
 # Method shows the music entries that correspond to the search. 
 get "/search_band/:x" do
@@ -50,6 +57,8 @@ get "/search_album/:x" do
   @search_a = MusicCollection.search_rows("album_name", params["album_name"])
   erb :"search/search_album"  
 end
+#-------------------------------------------------
+# Delete Music Entries
 #-------------------------------------------------
 # Method shows list of all the music entries. User then clicks the entry they wish to delete.
 get "/delete_list_entry/:x" do
